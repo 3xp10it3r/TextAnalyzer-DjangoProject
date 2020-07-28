@@ -20,41 +20,49 @@ def analyzer(request):
     upperc = request.POST.get("up","off")
     lowerc = request.POST.get("lw","off")
     charcount = request.POST.get("cc","off")
+    analyzed_Value=""
     # print(textget,punOn)
     if (punOn == "on"):
         analyzed_Value = textget.translate(str.maketrans(dict.fromkeys(string.punctuation)))
         params = {'purpose': 'Punctuation Analyzed', 'analyzed_Value': analyzed_Value}
-        return render(request, 'analyzed1.html', params)
-    elif(newline=='on'):
+        textget=analyzed_Value
+        # return render(request, 'analyzed1.html', params)
+    if(newline=='on'):
         analyzed_Value = ""
         # print(textget)
         for i in textget:
             if i != "\n" and i!="\r":
                 analyzed_Value = analyzed_Value + i
         params = {'purpose': 'NewLine Remover', 'analyzed_Value': analyzed_Value}
-        return render(request, 'analyzed1.html', params)
-    elif(extraspace=="on"):
+        textget = analyzed_Value
+        # return render(request, 'analyzed1.html', params)
+    if(extraspace=="on"):
         analyzed_Value = textget.replace("  "," ")
         params = {'purpose': 'ExtraSpace Remover', 'analyzed_Value': analyzed_Value}
-        return render(request, 'analyzed1.html', params)
-    elif(upperc=="on"):
+        textget = analyzed_Value
+        # return render(request, 'analyzed1.html', params)
+    if(upperc=="on"):
         analyzed_Value = textget.upper()
         params = {'purpose': 'UpperCase', 'analyzed_Value': analyzed_Value}
-        return render(request, 'analyzed1.html', params)
-    elif(lowerc=="on"):
+        textget = analyzed_Value
+        # return render(request, 'analyzed1.html', params)
+    if(lowerc=="on"):
         analyzed_Value = textget.lower()
         params = {'purpose': 'LowerCase', 'analyzed_Value': analyzed_Value}
-        return render(request, 'analyzed1.html', params)
-    elif(charcount=="on"):
+        textget = analyzed_Value
+        # return render(request, 'analyzed1.html', params)
+    if(charcount=="on"):
         x=Counter(textget)
         li=[]
         for key,value in x.items():
             li.append([key,value])
         analyzed_Value = li
         params = {'purpose': 'CharCounts', 'analyzed_Value': analyzed_Value}
-        return render(request, 'analyzed1.html', params)
+        textget = analyzed_Value
+    if(analyzed_Value==""):
+        return HttpResponse("Please select any operation and try again.")
     else:
-        return HttpResponse("Error")
+        return render(request, 'analyzed1.html', params)
 
 # def textAccess(request):
 #     f = open("one.txt","r")
