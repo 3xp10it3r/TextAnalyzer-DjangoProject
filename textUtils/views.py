@@ -13,13 +13,13 @@ def index(request):
 
 
 def analyzer(request):
-    textget = request.GET.get('text', 'default')
-    punOn = request.GET.get('tb', 'off')
-    newline = request.GET.get('nl',"off")
-    extraspace = request.GET.get('es',"off")
-    upperc = request.GET.get("up","off")
-    lowerc = request.GET.get("lw","off")
-    charcount = request.GET.get("cc","off")
+    textget = request.POST.get('text', 'default')
+    punOn = request.POST.get('tb', 'off')
+    newline = request.POST.get('nl',"off")
+    extraspace = request.POST.get('es',"off")
+    upperc = request.POST.get("up","off")
+    lowerc = request.POST.get("lw","off")
+    charcount = request.POST.get("cc","off")
     # print(textget,punOn)
     if (punOn == "on"):
         analyzed_Value = textget.translate(str.maketrans(dict.fromkeys(string.punctuation)))
@@ -27,12 +27,11 @@ def analyzer(request):
         return render(request, 'analyzed1.html', params)
     elif(newline=='on'):
         analyzed_Value = ""
-        for char in textget:
-            if(char=='\n'):
-                continue
-            analyzed_Value+=char
-        # analyzed_Value = textget.translate(str.maketrans(dict.fromkeys(string.punctuation)))
-        params = {'purpose': 'New Line Remover', 'analyzed_Value': analyzed_Value}
+        # print(textget)
+        for i in textget:
+            if i != "\n" and i!="\r":
+                analyzed_Value = analyzed_Value + i
+        params = {'purpose': 'NewLine Remover', 'analyzed_Value': analyzed_Value}
         return render(request, 'analyzed1.html', params)
     elif(extraspace=="on"):
         analyzed_Value = textget.replace("  "," ")
