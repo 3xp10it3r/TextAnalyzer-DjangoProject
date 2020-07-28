@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text Analyzer</title>
+</head>
+<body>
+<h1>Text Analyzer</h1>
+<h3>Enter the text below :- </h3>
+<!--{{name}} is programmer from {{ place }}.-->
+<form action='/analyzer' method='get'>
+    <textarea name='text' style="margin: 0px; height: 184px; width: 444px;"></textarea><br>
+    <input type="checkbox" name = 'tb'>Puctuation Remover<br>
+    <input type="checkbox" name = 'nl'>Newline Remover<br>
+    <input type="checkbox" name = 'es'>Extra Space Remover<br>
+    <input type="checkbox" name = 'up'>UpperCase<br>
+    <input type="checkbox" name = 'lw'>LowerCase<br>
+    <input type="checkbox" name = 'cc'>char count<br>
+    <button>Analyze Text</button>
+</form>
+
+</body>
+
+</html>
